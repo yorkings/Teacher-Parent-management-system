@@ -20,7 +20,7 @@
             position: fixed;
             width: 250px;
             height: 100%;
-            background: #333;
+            background: #0ed830;
             padding-top: 20px;
             color: #fff;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -62,11 +62,9 @@
 
     <div id="sidebar">
         <!-- Add common sidebar content here -->
-        <a href="{% url 'admin_dashboard' %}">Dashboard</a>
-        <a href="{% url 'admin_register' %}">Admin Registration</a>
-        <a href="{% url 'parent_register' %}">Parent Registration</a>
-        <a href="{% url 'teacher_register' %}">Teacher Registration</a>
-        <a href="{% url 'event' %}">Create Event</a>
+        <a href="{% url 'parent_dashboard' %}">Dashboard</a>
+        <a href="{% url 'results' %}">view_results</a>
+        <a href="{% url 'attendance' %}">Attendance</a>
         <a href="{% url 'logout' %}">Logout</a>
     </div>
 
@@ -75,5 +73,3 @@
     </div>
 
 </body>
-
-</html>

@@ -27,9 +27,10 @@ class AdminRegistrationForm(UserCreationForm):
 class ParentRegistrationForm(UserCreationForm):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
+    student_name=forms.CharField(max_length=30)
     class Meta:
         model = CustomUser  # Corrected from 'models' to 'model'
-        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+        fields = ['username', 'first_name', 'last_name','student_name', 'email', 'password1', 'password2']
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -43,3 +44,23 @@ class EventForm(forms.ModelForm):
      class Meta:
          model=events
          fields='__all__'   
+
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = ['student_name', 'admission_no', 'session', 'student_class']
+
+class SubjectForm(forms.ModelForm):
+    class Meta:
+        model = Subject
+        fields = ['name', 'session', 'student_class']
+
+class ResultForm(forms.ModelForm):
+    class Meta:
+        model = Result
+        fields = ['student', 'subject', 'marks', 'grade']
+
+class AttendanceForm(forms.ModelForm):
+    class Meta:
+        model = Attendance
+        fields = ['student', 'date', 'is_present']

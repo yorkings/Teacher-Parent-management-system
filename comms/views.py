@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 from .forms import *
@@ -85,3 +85,119 @@ def events(request):
        event=EventForm()
     return render(request,'admindashboard/event.html',{'form':event})             
     
+def create_student(request):
+    if request.method == 'POST':
+        form = StudentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('student_list')  # Replace 'student_list' with the URL for listing students
+    else:
+        form = StudentForm()
+
+    return render(request, 'create_student.html', {'form': form})
+
+def update_student(request, student_id):
+    instance = get_object_or_404(Student, id=student_id)
+    
+    if request.method == 'POST':
+        form = StudentForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('student_list')  # Replace 'student_list' with the URL for listing students
+    else:
+        form = StudentForm(instance=instance)
+
+    return render(request, 'update_student.html', {'form': form, 'student': instance})
+
+def student_list(request):
+    students = Student.objects.all()
+    return render(request, 'student_list.html', {'students': students})
+
+# Similar views for Subject, Result, and Attendance
+
+# Subject views
+def create_subject(request):
+    if request.method == 'POST':
+        form = SubjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('subject_list')  # Replace 'subject_list' with the URL for listing subjects
+    else:
+        form = SubjectForm()
+
+    return render(request, 'create_subject.html', {'form': form})
+
+def update_subject(request, subject_id):
+    instance = get_object_or_404(Subject, id=subject_id)
+    
+    if request.method == 'POST':
+        form = SubjectForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('subject_list')  # Replace 'subject_list' with the URL for listing subjects
+    else:
+        form = SubjectForm(instance=instance)
+
+    return render(request, 'update_subject.html', {'form': form, 'subject': instance})
+
+def subject_list(request):
+    subjects = Subject.objects.all()
+    return render(request, 'subject_list.html', {'subjects': subjects})
+
+# Result views
+def create_result(request):
+    if request.method == 'POST':
+        form = ResultForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('result_list')  # Replace 'result_list' with the URL for listing results
+    else:
+        form = ResultForm()
+
+    return render(request, 'create_result.html', {'form': form})
+
+def update_result(request, result_id):
+    instance = get_object_or_404(Result, id=result_id)
+    
+    if request.method == 'POST':
+        form = ResultForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('result_list')  # Replace 'result_list' with the URL for listing results
+    else:
+        form = ResultForm(instance=instance)
+
+    return render(request, 'update_result.html', {'form': form, 'result': instance})
+
+def result_list(request):
+    results = Result.objects.all()
+    return render(request, 'result_list.html', {'results': results})
+
+# Attendance views
+def create_attendance(request):
+    if request.method == 'POST':
+        form = AttendanceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('attendance_list')  # Replace 'attendance_list' with the URL for listing attendance
+    else:
+        form = AttendanceForm()
+
+    return render(request, 'create_attendance.html', {'form': form})
+
+def update_attendance(request, attendance_id):
+    instance = get_object_or_404(Attendance, id=attendance_id)
+    
+    if request.method == 'POST':
+        form = AttendanceForm(request.POST, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('attendance_list')  # Replace 'attendance_list' with the URL for listing attendance
+    else:
+        form = AttendanceForm(instance=instance)
+
+    return render(request, 'update_attendance.html', {'form': form, 'attendance': instance})
+
+def attendance_list(request):
+    attendance_records = Attendance.objects.all()
+    return render(request, 'attendance_list.html', {'attendance_records': attendance_records})

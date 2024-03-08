@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Your Site Title{% endblock %}</title>
+    <!-- Add your common styles, scripts, or links here -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        #sidebar {
+            position: fixed;
+            width: 250px;
+            height: 100%;
+            background: #333;
+            padding-top: 20px;
+            color: #fff;
+        }
+
+        #sidebar a {
+            text-decoration: none;
+            padding: 15px 10px;
+            font-size: 18px;
+            color: #fff;
+            display: block;
+            transition: 0.3s;
+        }
+
+        #sidebar a:hover {
+            background-color: #555;
+        }
+
+        #content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="sidebar">
+        <!-- Add common sidebar content here -->
+        <a href="{% url 'admin_dashboard' %}">Dashboard</a>
+        <a href="{% url 'admin_register' %}">admin registration</a>
+        <a href="{% url 'parent_register' %}">parent registration</a>
+        <a href="{% url 'teacher_register' %}">teacher registration</a>
+        <a href="{% url 'event' %}">create event</a>
+        <a href="{% url 'logout' %}">logout</a>
+        
+        
+    </div>
+
+    <div id="content">
+        {% block content %}{% endblock %}
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+{% include 'admindashboard/base.html' %}
+{% block content %}
+ <div class="content">
+     <table>
+        <thead>subject list</thead>
+        <tr>
+            <td>subject</td>
+            <td>session</td>
+            <td>Action</td>
+        </tr>
+        {% for sub in subjects %}
+          <tr>
+            <td>{{sub.name}}</td>
+            <td>{{sub.session}}</td>
+            <td>{{sub.student_class}}</td>
+            <td>
+                <a href="{% url 'update_subject' sub.id %}">update</a>
+                <a href="{% url 'delete_subject' sub.id %}">delete</a>
+            </td>
+          </tr>
+     </table>
+ </div>
+{% endblock%}

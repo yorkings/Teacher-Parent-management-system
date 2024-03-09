@@ -1,0 +1,25 @@
+{% include 'teacher_dash/base.html' %}
+{% block content %}
+ <div class="content">
+     <table>
+        <thead>student list</thead>
+        <tr>
+            <td>student name</td>
+            <td>admmision no</td>
+            <td>session</td>
+            <td>student_class</td>
+        </tr>
+        {% for stud in students %}
+          <tr>
+            <td>{{stud.student_name}}</td>
+            <td>{{stud.addmission_no}}</td>
+            <td>{{stud.session}}</td>
+            <td>{{stud.student_class}}</td>
+            <td>
+                <a href="{% url 'update_student' stud.id %}">update</a>
+                <a href="{% url 'delete_student' stud.id %}">delete</a>
+            </td>
+          </tr>
+     </table>
+ </div>
+{% endblock%}

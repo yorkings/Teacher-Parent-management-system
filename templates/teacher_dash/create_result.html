@@ -1,0 +1,12 @@
+{% include 'teacher_dash/base.html' %}
+{% block content %}
+ <div class="content">
+    <form method="post">
+        {% csrf_token %}
+        {% for form in form %}
+        <br> {{ form.label }} :{{ form}} <br>
+        {% endfor %}
+        <button type="submit">create result</button>
+    </form>
+ </div>
+{% endblock%}

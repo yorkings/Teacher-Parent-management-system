@@ -1,0 +1,24 @@
+{% include 'teacher_dash/base.html' %}
+{% block content %}
+ <div class="content">
+     <table>
+        <thead>Attendance list</thead>
+        <tr>
+            <td>student name</td>
+            <td>date</td>
+            <td>class</td>
+            <td>Action</td>
+        </tr>
+        {% for att in attendance_records %}
+          <tr>
+            <td>{{att.student}}</td>
+            <td>{{att.date}}</td>
+            <td>{{att.is_present}}</td>
+            <td>
+                <a href="{% url 'update_attendance' att.id %}">update</a>
+                <a href="{% url 'delete_attendance' att.id %}">delete</a>
+            </td>
+          </tr>
+     </table>
+ </div>
+{% endblock%}

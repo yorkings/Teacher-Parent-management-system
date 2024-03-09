@@ -1,0 +1,25 @@
+{% include 'teacher_dash/base.html' %}
+{% block content %}
+ <div class="content">
+     <table>
+        <thead>result list</thead>
+        <tr>
+            <td>student name</td>
+            <td>subject</td>
+            <td>marks</td>
+            <td>grade</td>
+        </tr>
+        {% for res in results %}
+          <tr>
+            <td>{{res.student}}</td>
+            <td>{{res.subject}}</td>
+            <td>{{res.marks}}</td>
+            <td>{{res.grade}}</td>
+            <td>
+                <a href="{% url 'update_result' res.id %}">update</a>
+                <a href="{% url 'delete_result' res.id %}">delete</a>
+            </td>
+          </tr>
+     </table>
+ </div>
+{% endblock%}

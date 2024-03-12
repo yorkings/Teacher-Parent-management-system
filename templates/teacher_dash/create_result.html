@@ -1,6 +1,7 @@
-{% include 'teacher_dash/base.html' %}
+{% extends 'teacher_dash/base.html' %}
+{% load static %}
 {% block content %}
- <div class="content">
+<link rel="stylesheet" href="{% static 'admin.css' %}">
     <form method="post">
         {% csrf_token %}
         {% for form in form %}
@@ -8,5 +9,4 @@
         {% endfor %}
         <button type="submit">create result</button>
     </form>
- </div>
 {% endblock%}

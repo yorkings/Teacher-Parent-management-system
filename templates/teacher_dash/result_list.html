@@ -1,13 +1,15 @@
 {% include 'teacher_dash/base.html' %}
+{% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'table.css' %}">
  <div class="content">
-     <table>
+     <table class="table">
         <thead>result list</thead>
         <tr>
-            <td>student name</td>
-            <td>subject</td>
-            <td>marks</td>
-            <td>grade</td>
+            <th>student name</th>
+            <th>subject</th>
+            <th>marks</th>
+            <th>grade</th>
         </tr>
         {% for res in results %}
           <tr>
@@ -20,6 +22,7 @@
                 <a href="{% url 'delete_result' res.id %}">delete</a>
             </td>
           </tr>
+          {% endfor %}
      </table>
  </div>
 {% endblock%}

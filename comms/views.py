@@ -75,16 +75,41 @@ def logout_user(request):
 def admin_dashboard(request):
     return render(request,'admindashboard/admin_dashboard.html')
 
-def events(request):
+def parent_dashboard(request):
+    return render(request,'parent_dash/parent_dashboard.html')
+
+def teacher_dashboard(request):
+    return render(request,'teacher_dash/teacher_dashboard.html')
+
+def create_events(request):
     if request.method=="POST":
-        event=EventForm(request.POST)
+        event=EventForm(request.POST,request.FILES)
         if event.is_valid():
             event.save()
             return redirect('admin_dashboard')
     else:
        event=EventForm()
+    return render(request,'admindashboard/event.html',{'form':event})  
+           
+def edit_events(request,id):
+    even=events.objects.get(id=id)
+    if request.method=="POST":
+        event=EventForm(request.POST,request.FILES)
+        if event.is_valid():
+            event.save()
+            return redirect('admin_dashboard')
+    else:
+       event=EventForm(instance=even)
     return render(request,'admindashboard/event.html',{'form':event})             
-    
+
+def event_list(request):
+    even=events.objects.all()
+    return render(request,'event_list.html',{'events':even})
+def delete_even(request,id):
+    even=events.objects.get(id=id)
+    even.delete()
+    return redirect('event-list')
+
 def create_student(request):
     if request.method == 'POST':
         form = StudentForm(request.POST)
@@ -94,7 +119,7 @@ def create_student(request):
     else:
         form = StudentForm()
 
-    return render(request, 'create_student.html', {'form': form})
+    return render(request, 'teacher_dash/create_student.html', {'form': form})
 
 def update_student(request, student_id):
     instance = get_object_or_404(Student, id=student_id)
@@ -107,11 +132,16 @@ def update_student(request, student_id):
     else:
         form = StudentForm(instance=instance)
 
-    return render(request, 'update_student.html', {'form': form, 'student': instance})
+    return render(request, 'teacher_dash/create_student.html', {'form': form, 'student': instance})
 
 def student_list(request):
     students = Student.objects.all()
-    return render(request, 'student_list.html', {'students': students})
+    return render(request, 'teacher_dash/student_list.html', {'students': students})
+
+def delete_student(request,id):
+    students = Student.objects.get(id=id)
+    students.delete()
+    return redirect("student_list")
 
 # Similar views for Subject, Result, and Attendance
 
@@ -125,7 +155,7 @@ def create_subject(request):
     else:
         form = SubjectForm()
 
-    return render(request, 'create_subject.html', {'form': form})
+    return render(request, 'admindashboard/create_subject.html', {'form': form})
 
 def update_subject(request, subject_id):
     instance = get_object_or_404(Subject, id=subject_id)
@@ -138,11 +168,11 @@ def update_subject(request, subject_id):
     else:
         form = SubjectForm(instance=instance)
 
-    return render(request, 'update_subject.html', {'form': form, 'subject': instance})
+    return render(request, 'admindashboard/update_subject.html', {'form': form, 'subject': instance})
 
 def subject_list(request):
     subjects = Subject.objects.all()
-    return render(request, 'subject_list.html', {'subjects': subjects})
+    return render(request, 'admindashboard/subject_list.html', {'subjects': subjects})
 
 # Result views
 def create_result(request):
@@ -154,7 +184,7 @@ def create_result(request):
     else:
         form = ResultForm()
 
-    return render(request, 'create_result.html', {'form': form})
+    return render(request, 'teacher_dash/create_result.html', {'form': form})
 
 def update_result(request, result_id):
     instance = get_object_or_404(Result, id=result_id)
@@ -167,11 +197,11 @@ def update_result(request, result_id):
     else:
         form = ResultForm(instance=instance)
 
-    return render(request, 'update_result.html', {'form': form, 'result': instance})
+    return render(request, 'teacher_dash/update_result.html', {'form': form, 'result': instance})
 
 def result_list(request):
     results = Result.objects.all()
-    return render(request, 'result_list.html', {'results': results})
+    return render(request, 'teacher_dash/result_list.html', {'results': results})
 
 # Attendance views
 def create_attendance(request):
@@ -183,7 +213,7 @@ def create_attendance(request):
     else:
         form = AttendanceForm()
 
-    return render(request, 'create_attendance.html', {'form': form})
+    return render(request, 'teacher_dash/create_attendance.html', {'form': form})
 
 def update_attendance(request, attendance_id):
     instance = get_object_or_404(Attendance, id=attendance_id)
@@ -196,8 +226,13 @@ def update_attendance(request, attendance_id):
     else:
         form = AttendanceForm(instance=instance)
 
-    return render(request, 'update_attendance.html', {'form': form, 'attendance': instance})
+    return render(request, 'teacher_dash/update_attendance.html', {'form': form, 'attendance': instance})
 
 def attendance_list(request):
     attendance_records = Attendance.objects.all()
-    return render(request, 'attendance_list.html', {'attendance_records': attendance_records})
+    return render(request, 'teacher_dash/attendance_list.html', {'attendance_records': attendance_records})
+
+def delete_attendance(request,id):
+    attend=Attendance.objects.get(id=id)
+    attend.delete()
+    return redirect('attendance_list')

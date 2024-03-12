@@ -1,25 +1,34 @@
-{% include 'teacher_dash/base.html' %}
+{% extends 'teacher_dash/base.html' %}
+{% load static %}
 {% block content %}
- <div class="content">
-     <table>
-        <thead>student list</thead>
-        <tr>
-            <td>student name</td>
-            <td>admmision no</td>
-            <td>session</td>
-            <td>student_class</td>
-        </tr>
-        {% for stud in students %}
-          <tr>
-            <td>{{stud.student_name}}</td>
-            <td>{{stud.addmission_no}}</td>
-            <td>{{stud.session}}</td>
-            <td>{{stud.student_class}}</td>
-            <td>
-                <a href="{% url 'update_student' stud.id %}">update</a>
-                <a href="{% url 'delete_student' stud.id %}">delete</a>
-            </td>
-          </tr>
-     </table>
- </div>
-{% endblock%}
+<link rel="stylesheet" href="{% static 'table.css' %}">
+<div class="content">
+    <h2>Student List</h2>
+    <a href="{% url 'create_student' %}" class="btn btn-sm btn-primary">Add student</a> 
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Admission No</th>
+                <th>Session</th>
+                <th>Student Class</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stud in students %}
+            <tr>
+                <td>{{ stud.student_name }}</td>
+                <td>{{ stud.admission_no }}</td>
+                <td>{{ stud.session }}</td>
+                <td>{{ stud.student_class }}</td>
+                <td>
+                    <a href="{% url 'update_student' stud.id %}" class="btn btn-sm btn-primary">Update</a>
+                    <a href="{% url 'delete_student' stud.id %}" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

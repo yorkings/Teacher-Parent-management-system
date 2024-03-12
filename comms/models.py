@@ -25,6 +25,8 @@ class Assignments(models.Model):
 
 class Session(models.Model):
     year = models.CharField(max_length=10)
+    def __str__(self):
+        return self.year
 
 class Subject(models.Model):
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
@@ -36,9 +38,13 @@ class Student(models.Model):
     admission_no = models.CharField(max_length=30)
     session = models.ForeignKey(Session, on_delete=models.CASCADE)
     student_class = models.ForeignKey('StudentClass', on_delete=models.CASCADE)
+    def __str__(self):
+        return self.student_name
 
 class StudentClass(models.Model):
     class_name = models.CharField(max_length=50)
+    def __str__(self):
+        return self.class_name
 
 class Result(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)

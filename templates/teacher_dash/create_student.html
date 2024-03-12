@@ -3,7 +3,7 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'form.css' %}">
 <div class="content">
-    <form method="post" class="attendance-form">
+    <form method="post" class="student-form">
         {% csrf_token %}
         {% for field in form %}
         <div class="form-field">
@@ -11,7 +11,7 @@
             {{ field }}
         </div>
         {% endfor %}
-        <button type="submit" class="submit-button">Create Attendance</button>
+        <button type="submit" class="submit-button">submit Student</button>
     </form>
 </div>
 {% endblock %}

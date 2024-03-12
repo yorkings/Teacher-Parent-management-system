@@ -1,14 +1,20 @@
-{% include 'teacher_dash/base.html' %}
+{% extends 'teacher_dash/base.html' %}
+{% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'table.css' %}">
  <div class="content">
-     <table>
-        <thead>Attendance list</thead>
+   <a href="{% url 'create_attendance' %}" class="btn btn-sm btn-primary">create attendance</a>
+     <table class="table">
+      <h2>attendance List</h2>
+        <thead>
         <tr>
-            <td>student name</td>
-            <td>date</td>
-            <td>class</td>
-            <td>Action</td>
+            <th>student name</th>
+            <th>date</th>
+            <th>class</th>
+            <th>Action</th>
         </tr>
+      </thead>
+      <tbody>
         {% for att in attendance_records %}
           <tr>
             <td>{{att.student}}</td>
@@ -19,6 +25,8 @@
                 <a href="{% url 'delete_attendance' att.id %}">delete</a>
             </td>
           </tr>
+          {% endfor %}
+        </tbody>
      </table>
  </div>
 {% endblock%}
